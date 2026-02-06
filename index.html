@@ -1,303 +1,444 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Web Profile - Bariq Al Mukasyah</title>
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/unicons.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-
-    <!-- MAIN STYLE -->
-    <link rel="stylesheet" href="css/tooplate-style.css">
+<!DOCTYPE html>
+<html lang="id" class="bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Bariq Al Mukasyah - IT Infrastructure Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+            background-color: #0f172a; 
+        }
 
-    <!-- MENU -->
-    <nav class="navbar navbar-expand-sm navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.html"><i class='uil uil-user'></i> Bariq</a>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+            background-color: #f8fafc;
+        }
+        
+        @keyframes running-light {
+          0% { top: -20%; opacity: 0; }
+          50% { opacity: 1; }
+          100% { top: 120%; opacity: 0; }
+        }
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                <span class="navbar-toggler-icon"></span>
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        .timeline-line {
+          position: relative;
+          width: 2px;
+          background: #e2e8f0;
+          overflow: hidden;
+        }
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link"><span data-hover="About">About</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#project" class="nav-link"><span data-hover="Projects">Projects</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#resume" class="nav-link"><span data-hover="Resume">Resume</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link"><span data-hover="Contact">Contact</span></a>
-                    </li>
-                </ul>
+        .timeline-light {
+          position: absolute;
+          width: 100%;
+          height: 100px;
+          background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+          box-shadow: 0 0-15px #3b82f6;
+          animation: running-light 3s infinite linear;
+        }
 
-                <ul class="navbar-nav ml-lg-auto">
-                    <div class="ml-lg-4">
-                      <div class="color-mode d-lg-flex justify-content-center align-items-center">
-                        <i class="color-mode-icon"></i>
-                        Color mode
-                      </div>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
 
-    <!-- ABOUT -->
-    <section class="about full-screen d-lg-flex justify-content-center align-items-center" id="about">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center">
-                    <div class="about-text">
-                        <small class="small-text">Welcome to <span class="mobile-block">my portfolio website!</span></small>
-                        <h1 class="animated animated-text">
-                            <span class="mr-2">Hey folks, I am</span>
-                                <div class="animated-info">
-                                    <span class="animated-item">Muhammad Bariq Al Mukasyah</span>
-                                    <span class="animated-item">IT Support</span>
-                                    <span class="animated-item">IT Infrastructure</span>
-                                    <span class="animated-item">AI Enthusiast</span>
+        .scroll-container {
+          display: flex;
+          width: max-content;
+          animation: scroll 30s linear infinite;
+        }
+
+        .scroll-container:hover {
+          animation-play-state: paused;
+        }
+        
+        .lucide { stroke-width: 2px; }
+
+        section {
+            scroll-margin-top: 100px;
+        }
+
+        .container-custom {
+            width: 100%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .container-custom {
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        
+        const Icon = ({ name, size = 20, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, []);
+            return <i data-lucide={name} style={{width: size, height: size}} className={`inline-block ${className}`}></i>;
+        };
+
+        const App = () => {
+            const [isMenuOpen, setIsMenuOpen] = useState(false);
+            const [logoError, setLogoError] = useState(false);
+            const [profileError, setProfileError] = useState(false);
+
+            useEffect(() => {
+                AOS.init({
+                    duration: 1000,
+                    once: true,
+                    offset: 100,
+                    easing: 'ease-out-cubic'
+                });
+
+                const handleNavClick = (e) => {
+                    const href = e.currentTarget.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.replace('#', '');
+                        const element = document.getElementById(targetId);
+                        if (element) {
+                            window.scrollTo({
+                                top: element.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                };
+
+                const links = document.querySelectorAll('a[href^="#"]');
+                links.forEach(link => link.addEventListener('click', handleNavClick));
+
+                return () => links.forEach(link => link.removeEventListener('click', handleNavClick));
+            }, []);
+
+            const personalInfo = {
+                name: "Muhammad Bariq Al Mukasyah",
+                title: "IT Support & Infrastructure Specialist",
+                tagline: "IT seperlunya, hasil semaksimalnya.", 
+                phone: "085156960832",
+                whatsappLink: "https://wa.me/6285156960832?text=Halo%20Mas%20Bariq,%20saya%20tertarik%20dengan%20jasa%20IT%20Support%20Anda.",
+                email: "b@riq.web.id",
+                location: "Semarang, Indonesia",
+                linkedin: "https://www.linkedin.com/in/bariqalmukasyah",
+                github: "https://bariqalmukasyah.github.io"
+            };
+
+            const services = [
+                { icon: "network", title: "Jaringan & Infrastruktur", desc: "Instalasi Mikrotik, Ubiquiti, Fiber Optic, dan manajemen jaringan LAN/WLAN yang stabil untuk kantor yang sedang berkembang." },
+                { icon: "wrench", title: "IT Technical Support", desc: "Pemecahan masalah hardware/software cepat agar operasional harian bisnis tidak terganggu." },
+                { icon: "shield-check", title: "CCTV & Security", desc: "Instalasi sistem keamanan CCTV 24/7 untuk melindungi aset fisik kantor dan tempat usaha Anda." },
+                { icon: "server", title: "Server & Virtualisasi", desc: "Efisiensi biaya dengan konfigurasi Linux Server & Docker yang tepat guna untuk kebutuhan skala menengah." },
+                { icon: "code", title: "Web Development", desc: "Pembuatan website profil perusahaan yang profesional untuk meningkatkan kredibilitas bisnis Anda." }
+            ];
+
+            const experiences = [
+                {
+                    company: "PT. Bromindo Mekar Mitra",
+                    role: "IT Support",
+                    period: "Aug 2021 - Present",
+                    desc: "Bertanggung jawab penuh dalam merancang, mengelola, dan mengoptimalkan infrastruktur jaringan korporat. Fokus utama meliputi pemeliharaan integritas sistem, peningkatan efisiensi jaringan melalui monitoring aktif, serta memberikan solusi troubleshooting perangkat keras dan lunak secara preventif untuk menjamin kelancaran operasional bisnis harian."
+                },
+                {
+                    company: "PT. Media Sarana Data (Gmedia)",
+                    role: "Access Support",
+                    period: "Nov 2019 - Jul 2021",
+                    desc: "Mengelola konektivitas jaringan pelanggan secara end-to-end, mencakup instalasi Fiber Optic dan perangkat nirkabel. Melakukan survei lokasi teknis yang mendalam, konfigurasi perangkat MikroTik dan Ubiquiti, serta aktif menggunakan tool monitoring seperti 'The Dude' dan 'Cacti' untuk memastikan stabilitas sambungan berkualitas tinggi bagi klien korporat."
+                },
+                {
+                    company: "Sofitel Bali Nusa Dua Beach Resort",
+                    role: "Engineer on Site",
+                    period: "Jul 2018 - Nov 2019",
+                    desc: "Memberikan dukungan teknis tingkat tinggi di sektor perhotelan bintang 5 sebagai perwakilan PT Padi Internet. Spesialis dalam pemeliharaan Access Point Cisco Aironet dan pengelolaan sistem WiFi Billing Premium. Berhasil memastikan pengalaman konektivitas tamu yang lancar serta menangani troubleshoot sistem internal hotel dengan standar pelayanan hospitality yang ketat."
+                },
+                {
+                    company: "PT. Padi Internet",
+                    role: "Technical Support Intern",
+                    period: "May 2017 - Jan 2018",
+                    desc: "Membantu teknisi senior dalam manajemen konektivitas pelanggan, mulai dari survei lapangan hingga instalasi jaringan nirkabel. Berperan aktif dalam troubleshooting perangkat di sisi pengguna (CPE) dan mempelajari standar prosedur pemeliharaan jaringan ISP untuk memastikan kualitas layanan tetap terjaga."
+                }
+            ];
+
+            const skills = [
+                "MikroTik", "Ubiquiti", "Cisco Aironet", "Office Server", "Home Server", "Docker", "Ruijie",
+                "PHP", "HTML/CSS", "CCTV Installation", "Printer Maintenance", "VPBX Maintenance",
+                "Troubleshooting", "Customer Service", "Fiber Optic", "Network Monitoring", "Network Planning",
+                "Web App Development", "Professional Landing Page"
+            ];
+
+            return (
+                <div className="min-h-screen bg-slate-50">
+                    {/* Navbar */}
+                    <nav className="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50">
+                        <div className="container-custom py-3 flex justify-between items-center">
+                            <a href="#about" className="flex items-center">
+                                {!logoError ? (
+                                    <img 
+                                        src="BITS transparant.jpg" 
+                                        alt="BITS - BRQ IT Solution" 
+                                        className="h-10 md:h-12 w-auto object-contain"
+                                        onError={() => setLogoError(true)}
+                                    />
+                                ) : (
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-bold text-blue-900 tracking-tighter leading-none">BITS</span>
+                                        <span className="text-[0.5rem] font-bold text-slate-500 tracking-widest uppercase">BRQ IT Solution</span>
+                                    </div>
+                                )}
+                            </a>
+                            
+                            <div className="hidden md:flex gap-8 font-medium text-slate-600 text-sm">
+                                <a href="#about" className="hover:text-blue-600 transition">Tentang</a>
+                                <a href="#services" className="hover:text-blue-600 transition">Layanan</a>
+                                <a href="#experience" className="hover:text-blue-600 transition">Pengalaman</a>
+                                <a href="#contact" className="hover:text-blue-600 transition">Kontak</a>
+                            </div>
+
+                            <a href={personalInfo.whatsappLink} className="hidden md:flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition shadow-md shadow-green-200">
+                                <Icon name="phone" size={14} />
+                                Hubungi Saya
+                            </a>
+
+                            <button className="md:hidden text-slate-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                                <Icon name={isMenuOpen ? "x" : "menu"} />
+                            </button>
+                        </div>
+                    </nav>
+
+                    {/* Mobile Menu */}
+                    {isMenuOpen && (
+                        <div className="fixed inset-0 z-40 bg-white pt-20 px-6 md:hidden">
+                            <div className="flex flex-col gap-6 text-lg font-semibold text-slate-800">
+                                <a href="#about" onClick={() => setIsMenuOpen(false)}>Tentang</a>
+                                <a href="#services" onClick={() => setIsMenuOpen(false)}>Layanan</a>
+                                <a href="#experience" onClick={() => setIsMenuOpen(false)}>Pengalaman</a>
+                                <a href="#contact" onClick={() => setIsMenuOpen(false)}>Kontak</a>
+                                <a href={personalInfo.whatsappLink} className="bg-green-500 text-white p-4 rounded-xl text-center">Chat WhatsApp</a>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Hero Section */}
+                    <header id="about" className="pt-28 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-slate-900 to-blue-900 text-white relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute bottom-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+
+                        <div className="container-custom relative z-10 text-center md:text-left flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                            <div className="md:w-3/5 space-y-6" data-aos="fade-right">
+                                <div className="inline-block bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-1 text-xs font-medium text-blue-200 mb-2">
+                                    Available for Freelance Projects
                                 </div>
-                        </h1>
-
-                        <p>With more than 5 years of experience, committed to providing reliable technical support and effective solutions. My core skills include rapid troubleshooting, network configuration, and a strong customer service focus, all underpinned by integrity, perseverance, and a thirst for knowledge.</p>
-                        
-                        <div class="custom-btn-group mt-4">
-                          <a href="https://bariqalmukasyah.github.io/resume/Resume_MuhammadBariqAlMukasyah.pdf" class="btn mr-lg-2 custom-btn"><i class='uil uil-file-alt'></i> Download Resume</a>
-                          <a href="#contact" class="btn custom-btn custom-btn-bg custom-btn-link">Hire Me!</a>
+                                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+                                    {personalInfo.tagline}
+                                </h1>
+                                <p className="text-lg md:text-xl text-slate-300 max-w-4xl">
+                                    Saya {personalInfo.name}, membantu bisnis Anda memiliki infrastruktur IT yang stabil dan efisien layaknya perusahaan besar.
+                                </p>
+                                <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                                    <a href={personalInfo.whatsappLink} className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3.5 rounded-lg font-bold text-base transition flex items-center justify-center gap-2 shadow-xl shadow-blue-900/50 hover:-translate-y-1">
+                                        <Icon name="phone" size={18} />
+                                        Konsultasi Gratis
+                                    </a>
+                                    <a href="#services" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-3.5 rounded-lg font-semibold text-base transition backdrop-blur-sm">
+                                        Lihat Layanan
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div className="md:w-2/5 w-full" data-aos="fade-left">
+                                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-2xl shadow-2xl">
+                                    <div className="flex items-center gap-4 mb-8 border-b border-white/10 pb-6">
+                                        <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-blue-600 shadow-lg border-2 border-white/20">
+                                            {!profileError ? (
+                                                <img 
+                                                    src="profile.jpg" 
+                                                    alt={personalInfo.name}
+                                                    className="w-full h-full object-cover"
+                                                    onError={() => setProfileError(true)}
+                                                />
+                                            ) : (
+                                                <span className="text-2xl font-bold text-white">MB</span>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-xl">{personalInfo.name}</h3>
+                                            <p className="text-blue-200 text-sm">{personalInfo.title}</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-4 text-left">
+                                        {[
+                                            { label: "Network Reliability 99.9%", sub: "Jaminan koneksi stabil", icon: "shield-check", color: "text-green-400", bg: "bg-green-500/20" },
+                                            { label: "Fast Response Support", sub: "Siap sedia saat dibutuhkan", icon: "clock", color: "text-yellow-400", bg: "bg-yellow-500/20" },
+                                            { label: "Professional Experience", sub: "Standar industri tinggi", icon: "users", color: "text-purple-400", bg: "bg-purple-500/20" }
+                                        ].map((item, i) => (
+                                            <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5 transition hover:bg-white/10">
+                                                <div className={`p-2 ${item.bg} rounded-lg`}><Icon name={item.icon} size={24} className={item.color} /></div>
+                                                <div>
+                                                    <h4 className="font-bold text-sm text-slate-200">{item.label}</h4>
+                                                    <p className="text-xs text-slate-400">{item.sub}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </header>
+
+                    {/* Services Section */}
+                    <section id="services" className="py-24 overflow-hidden">
+                        <div className="container-custom">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <span className="text-blue-600 font-bold tracking-wider uppercase text-xs mb-2 block">Layanan Kami</span>
+                                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">Solusi IT Terintegrasi</h2>
+                                <p className="text-slate-600 max-w-3xl mx-auto">
+                                    Paket lengkap kebutuhan IT agar Anda bisa fokus pada strategi bisnis tanpa pusing masalah teknis.
+                                </p>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {services.map((service, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all group"
+                                        data-aos="fade-up"
+                                        data-aos-delay={idx * 100}
+                                    >
+                                        <div className="bg-blue-50 w-16 h-16 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-blue-600 transition-colors">
+                                            <Icon name={service.icon} size={32} className="text-blue-600 group-hover:text-white transition-colors" />
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-4 text-slate-800">{service.title}</h3>
+                                        <p className="text-slate-600 text-sm md:text-base leading-relaxed">{service.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Experience Section */}
+                    <section id="experience" className="py-24 bg-white overflow-hidden">
+                        <div className="container-custom">
+                            <div className="flex flex-col lg:flex-row gap-16">
+                                <div className="lg:w-1/3" data-aos="fade-right">
+                                    <span className="text-blue-600 font-bold tracking-wider uppercase text-xs mb-2 block">Portofolio Karir</span>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 leading-tight">Pengalaman Profesional</h2>
+                                    <p className="text-slate-600 mb-8 text-base leading-relaxed">
+                                        Rekam jejak komprehensif dalam mengelola infrastruktur IT kritis, sistem jaringan, dan dukungan teknis di berbagai lini industri selama bertahun-tahun.
+                                    </p>
+                                    <div className="flex flex-col gap-4">
+                                        <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 text-blue-600 font-bold hover:translate-x-2 transition-transform group">
+                                            Profil LinkedIn Profesional <Icon name="chevron-right" size={20} />
+                                        </a>
+                                        <a href={personalInfo.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 text-slate-600 font-bold hover:translate-x-2 transition-transform group">
+                                            Portofolio GitHub <Icon name="github" size={20} />
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div className="lg:w-2/3 flex gap-10">
+                                    <div className="timeline-line rounded-full flex-shrink-0">
+                                        <div className="timeline-light"></div>
+                                    </div>
+
+                                    <div className="space-y-16 w-full">
+                                        {experiences.map((exp, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                className="relative group w-full" 
+                                                data-aos="fade-left"
+                                                data-aos-delay={idx * 150}
+                                            >
+                                                <div className="absolute -left-[45px] top-1.5 w-5 h-5 bg-white border-2 border-blue-500 rounded-full z-10 shadow-sm group-hover:bg-blue-500 transition-colors"></div>
+                                                <h3 className="text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{exp.role}</h3>
+                                                <div className="text-blue-600 font-semibold mb-5 flex items-center gap-3 text-sm md:text-base">
+                                                    {exp.company} <span className="text-slate-300">|</span> {exp.period}
+                                                </div>
+                                                <p className="text-slate-600 text-sm md:text-lg leading-relaxed text-justify opacity-90">{exp.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Separated Skills Section (Floating Text) */}
+                    <section className="py-12 bg-slate-900 overflow-hidden border-b border-white/5">
+                        <div className="scroll-container py-2">
+                            {[...skills, ...skills].map((skill, idx) => (
+                                <div key={idx} className="mx-5 bg-white/5 border border-white/10 text-white px-8 py-3 rounded-xl text-sm font-semibold hover:bg-blue-600 hover:scale-105 transition-all whitespace-nowrap cursor-default">
+                                    {skill}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Slim Footer Section */}
+                    <footer id="contact" className="bg-slate-900 text-slate-400 py-8">
+                        <div className="container-custom" data-aos="fade-up">
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+                                <div className="flex flex-col items-center md:items-start">
+                                    <span className="text-white font-bold text-xl leading-tight">Muhammad Bariq</span>
+                                    <span className="text-[10px] tracking-[0.2em] uppercase opacity-50 mt-1">IT Infrastructure Specialist</span>
+                                </div>
+
+                                <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
+                                    <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-2 hover:text-white transition group">
+                                        <Icon name="mail" size={14} className="text-blue-500" /> {personalInfo.email}
+                                    </a>
+                                    <a href={personalInfo.whatsappLink} className="flex items-center gap-2 hover:text-white transition group">
+                                        <Icon name="phone" size={14} className="text-green-500" /> {personalInfo.phone}
+                                    </a>
+                                </div>
+
+                                <div className="flex gap-4">
+                                    <a href={personalInfo.linkedin} target="_blank" className="p-2.5 bg-white/5 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                                        <Icon name="linkedin" size={18} />
+                                    </a>
+                                    <a href={personalInfo.github} target="_blank" className="p-2.5 bg-white/5 rounded-lg hover:bg-slate-700 hover:text-white transition-all">
+                                        <Icon name="github" size={18} />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="mt-8 pt-6 border-t border-white/5 text-[10px] text-center md:text-left flex flex-col md:flex-row justify-between opacity-40 uppercase tracking-widest">
+                                <span>&copy; 2026 Muhammad Bariq Al Mukasyah</span>
+                                <div className="flex gap-6 mt-3 md:mt-0 justify-center">
+                                    <span>Semarang, Indonesia</span>
+                                    <a href="#" className="hover:text-white">Privacy Policy</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
                 </div>
+            );
+        };
 
-                <div class="col-lg-5 col-md-12 col-12">
-                    <div class="about-image svg">
-                        <img src="images/undraw/cool-robot-concept-illustration.png" class="img-fluid" alt="svg image">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECTS -->
-    <section class="project py-5" id="project">
-        <div class="container">
-                
-                <div class="row">
-                  <div class="col-lg-11 text-center mx-auto col-12">
-
-                      <div class="col-lg-8 mx-auto">
-                        <h2>Things I have done to support IT Division</h2>
-                      </div>
-
-                      <div class="owl-carousel owl-theme">
-                        <div class="item">
-                          <div class="project-info">
-                            <img src="images/project/ruijie.png" class="img-fluid" alt="Ruijie Controller">
-                            <h5>Ruijie Controller with Mesh Wireless System</h5>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div class="project-info">
-                            <img src="images/project/faq.png" class="img-fluid" alt="FAQ's Page">
-                            <h5>FAQ's Page for IT Division</h5>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div class="project-info">
-                            <img src="images/project/portal.png" class="img-fluid" alt="Portal WebApp Hub with AI Chatbot">
-                            <h5>Portal WebApp Hub with AI Chatbot</h5>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div class="project-info">
-                            <img src="images/project/flowise.png" class="img-fluid" alt="Flowise AI Chatbot">
-                            <h5>Flowise AI Chatbot</h5>
-                          </div>
-                        </div>
-
-                        <div class="item">
-                          <div class="project-info">
-                            <img src="images/project/n8n.png" class="img-fluid" alt="N8N Automation">
-                            <h5>N8N Automation</h5>
-                          </div>
-                        </div>
-                      </div>
-
-                  </div>
-                </div>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="resume py-5 d-lg-flex justify-content-center align-items-center" id="resume">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-6 col-12">
-                  <h2 class="mb-4">Experiences</h2>
-
-                    <div class="timeline">
-                        <div class="timeline-wrapper">
-                             <div class="timeline-yr">
-                                  <span>2021</span>
-                             </div>
-                             <div class="timeline-info">
-                                  <h3><span>IT Support</span><br>
-                                  <small>PT. Bromindo Mekar Mitra</small></h3>
-                                  <p>Manage internet networks for head office and branches. Handle work support devices (smartphones, laptops). Ensure proper function of CCTV and office phones. Maintain and monitor local servers.</p>
-                             </div>
-                        </div>
-
-                        <div class="timeline-wrapper">
-                            <div class="timeline-yr">
-                                <span>2019</span>
-                            </div>
-                            <div class="timeline-info">
-                                <h3><span>Access Support</span><br>
-                                <small>PT. Media Sarana Data (Gmedia)</small></h3>
-                                <p>Setup, troubleshoot, and maintain customer link quality and local network onsite. Survey and install wireless (radio) and wired (fiber optic) connections. Use MikroTik and Ubiquiti devices. Monitor network with The Dude and Cacti. Prepare daily reports.</p>
-                            </div>
-                        </div>
-
-                        <div class="timeline-wrapper">
-                            <div class="timeline-yr">
-                                <span>2018</span>
-                            </div>
-                            <div class="timeline-info">
-                                <h3><span>Technical Support</span><br>
-                                <small>PT. Padi Internet</small></h3>
-                                <p>Setup, troubleshoot, and maintain customer link/local network onsite. Survey and install wireless (radio) connections. Provide 1st-level remote support via call, WhatsApp, and email. Use MikroTik and Ubiquiti devices. Monitor with The Dude and Cacti. Create monthly reports.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-wrapper">
-                            <div class="timeline-yr">
-                                <span>2018</span>
-                            </div>
-                            <div class="timeline-info">
-                                <h3><span>Engineer on Site</span><br>
-                                <small>Sofitel Bali Nusa Dua Beach Resort</small></h3>
-                                <p>IT Support for hotel staff (hardware, software, connectivity). 1st-level support for guest internet issues. Maintain and troubleshoot Cisco Aironet access points. Monitor and maintain hotel billing for premium Wi-Fi. Prepare daily and maintenance reports.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-lg-6 col-12">
-                  <h2 class="mb-4 mobile-mt-2">Educations</h2>
-
-                    <div class="timeline">
-                        <div class="timeline-wrapper">
-                             <div class="timeline-yr">
-                                  <span>2024</span>
-                             </div>
-                             <div class="timeline-info">
-                                  <h3><span>Universitas Stikubank Semarang</span><br>
-                                  <small>(Unisbank)</small></h3>
-                                  <p>S1 Teknik Informatika</p>
-                             </div>
-                        </div>
-
-                        <div class="timeline-wrapper">
-                            <div class="timeline-yr">
-                                <span>2018</span>
-                            </div>
-                            <div class="timeline-info">
-                                <h3><span>SMK Negeri 7 Semarang</span><br>
-                                <small>(STM Pembangunan)</small></h3>
-                                <p>Jurusan Teknik Komputer dan Jaringan</p>
-                            </div>
-                        </div>
-                        
-
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="contact py-5" id="contact">
-          <div class="container">
-          <div class="row">
-              <!-- Say Hello Section -->
-              <div class="col-lg-6 col-12">
-                  <div class="contact-info d-flex flex-column justify-content-center align-items-start py-4 px-lg-5">
-                      <h3 class="mb-3 text-white">Say hello</h3>
-                      <p class="footer-text mb-0">+62 851 5696 0832</p>
-                      <p><a href="mailto:bariqalmukasyah@gmail.com">bariqalmukasyah@gmail.com</a></p>
-                      <ul class="social-links d-flex mt-3">
-                          <li><a href="#" class="uil uil-instagram" data-toggle="tooltip" data-placement="left" title="Instagram"></a></li>
-                          <li><a href="#" class="uil uil-youtube" data-toggle="tooltip" data-placement="left" title="Youtube"></a></li>
-                      </ul>
-                  </div>
-              </div>
-      
-              <!-- Interested to Work Together Section -->
-              <div class="col-lg-6 col-12">
-                  <div class="contact-form">
-                      <h2 class="mb-4">Interested to work together? Let's talk</h2>
-                      <div class="row">
-                          <div class="ml-lg-auto col-lg-12 col-12">
-                              <!-- WhatsApp Button -->
-                              <a href="https://wa.me/6285156960832" class="form-control submit-btn text-center" style="display: block; text-decoration: none; color: white;" target="_blank">
-                                  Contact via WhatsApp
-                              </a>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-     <footer class="footer py-5">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-lg-12 col-12">                                
-                        <p class="copyright-text text-center">Copyright &copy; Bariq Al Mukasyah . All rights reserved</p>
-                        <p class="copyright-text text-center">Designed by <a rel="nofollow" href="https://www.facebook.com/tooplate">Tooplate</a></p>
-                    </div>
-                    
-               </div>
-          </div>
-     </footer>
-
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/Headroom.js"></script>
-    <script src="js/jQuery.headroom.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/smoothscroll.js"></script>
-    <script src="js/custom.js"></script>
-
-  </body>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
