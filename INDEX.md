@@ -161,7 +161,7 @@ Edit `lib/config.ts` to change:
 
 ### Add Your Photos
 1. Save `profile.jpg` to `public/` folder
-2. Save `BITS-transparant.jpg` to `public/` folder
+2. Save `BITS-transparant.png` to `public/` folder
 3. Refresh browser
 
 ### Change Colors
